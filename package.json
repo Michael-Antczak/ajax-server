@@ -1,0 +1,22 @@
+{
+  "name": "ajax-exercise",
+  "version": "1.0.0",
+  "description": "Server for the Ajax exercise for the Code Your Future students in Glasgow. ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Michael-Antczak/ajax-server.git"
+  },
+  "keywords": [
+    "AJAX",
+    "Node.js",
+    "server",
+    "API"
+  ],
+  "author": "Michael Antczak",
+  "license": "MIT"
+}
