@@ -2,6 +2,7 @@ var port = process.env.PORT || 3000,
     http = require('http'),
     fs = require('fs'),
     html = fs.readFileSync('index.html');
+    url = require('url');
 
 
 var server = http.createServer(function (req, res) {
@@ -16,12 +17,16 @@ var server = http.createServer(function (req, res) {
 
             if (req.url === '/chatroom') {
 
+                var reqUrl = url.parse(req.url);
+
                 res.writeHead(200, 'OK', {'Content-Type': 'application/json'});
 
                 var msg = "Received : " + new Date();
 
                 var result = {
-                    message: msg
+                    message: msg, 
+                    body: body, 
+                    url: url.search
                 }
                 
                 console.log("Hello " + new Date() );
@@ -31,7 +36,6 @@ var server = http.createServer(function (req, res) {
 
             }  else if (req.url === '/') {
 
-                console.log('Thanks');
                 res.end("Thank you, I am here");
 
             }
