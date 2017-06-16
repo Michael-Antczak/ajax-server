@@ -67,7 +67,7 @@ var server = http.createServer(function (req, res) {
             var id = query.replace('id=', '');
 
     
-            var lastMessage;
+            var lastMessage = {};
 
              myLastMessage.find(function(element, index, array)  {
                 if(element.id === id) {
