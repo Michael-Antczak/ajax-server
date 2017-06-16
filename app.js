@@ -4,57 +4,83 @@ var port = process.env.PORT || 3000,
     html = fs.readFileSync('index.html');
     url = require('url');
 
+var myLastMessage = [];
+
 
 var server = http.createServer(function (req, res) {
+
+    // dealing with POST request
     if (req.method === 'POST') {
         var body = '';
 
+        // get the content of the body
         req.on('data', function(chunk) {
             body += chunk;
         });
 
+        // when we are done with body
         req.on('end', function() {
 
-            if (req.url === '/chatroom') {
+            // get the id parameter from the url
+            var query = url.parse(req.url).query;
+            var id = query.replace('id=', '');
 
-                var reqUrl = url.parse(req.url);
-
-                res.writeHead(200, 'OK', {'Content-Type': 'application/json'});
-
-                var msg = "Received : " + new Date();
-
-                var result = {
-                    message: msg, 
-                    body: body, 
-                    url: url.search
-                }
-                
-                console.log("Hello " + new Date() );
-                res.write(JSON.stringify(result));
-
-                res.end();
-
-            }  else if (req.url === '/') {
-
-                res.end("Thank you, I am here");
-
+            // create the message object
+            var result = {
+                id: id,
+                body: body, 
             }
 
-            
-        });
+            // set the flag for checking if there is another message with the same id
+            var found = false;
 
-    } else if (req.method === 'GET' && req.url === "chatroom") {
-        res.writeHead(200, 'OK', {'Content-Type': 'application/json'});
+            // look for the last message for given id, if found -> replace, 
+            // not found then just add
+            myLastMessage.find(function(element, index, array)  {
+                
+                if(element.id === id) {
+                    found = true;
+                    myLastMessage.splice(index, 1, result);
 
-            var msg = "Received" + new Date();
-            
-            res.write({
-                message: msg
+                }
+
             });
+
+            // at this point the id is not found 
+            if(!found) myLastMessage.push(result);
+            console.log(myLastMessage);
+
+            res.writeHead(200, 'OK', {'Content-Type': 'application/json'});
+            res.end("\n\nSuccess");
+
+        });  // end of POST request
+        
+    // dealing with GET request
+} else if (req.method === 'GET') {
+    
+            // get the id parameter from the url
+            var query = url.parse(req.url).query;
+            var id = query.replace('id=', '');
+    
+            var lastMessage;
+
+             myLastMessage.find(function(element, index, array)  {
+
+                if(element.id === id) {
+
+                   lastMessage = element;
+
+                }
+
+            });
+
+            res.writeHead(200, 'OK', {'Content-Type': 'application/json'});
+            res.write(JSON.stringify(lastMessage));
             res.end();
+
+    // 
     } else {
-        console.log("DUPA");
-        console.log("URL : ", req.url);
+       
         res.writeHead(200);
         res.write(html);
         res.end();
