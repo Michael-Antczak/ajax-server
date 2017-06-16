@@ -50,7 +50,8 @@ var server = http.createServer(function (req, res) {
 
             res.writeHead(200, 'OK', {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
             });
             res.end("\n\nSuccess");
 
@@ -76,7 +77,8 @@ var server = http.createServer(function (req, res) {
 
             res.writeHead(200, 'OK', {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
             });
             res.write(JSON.stringify(lastMessage));
             res.end();
