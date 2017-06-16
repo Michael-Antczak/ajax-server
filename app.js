@@ -3,9 +3,6 @@ var port = process.env.PORT || 3000,
     fs = require('fs'),
     html = fs.readFileSync('index.html');
 
-var log = function(entry) {
-    fs.appendFileSync('/tmp/sample-app.log', new Date().toISOString() + ' - ' + entry + '\n');
-};
 
 var server = http.createServer(function (req, res) {
     if (req.method === 'POST') {
@@ -16,23 +13,26 @@ var server = http.createServer(function (req, res) {
         });
 
         req.on('end', function() {
-            if (req.url === '/') {
+
+            if (req.url === '/chatroom') {
 
                 res.writeHead(200, 'OK', {'Content-Type': 'application/json'});
 
                 var msg = "Received : " + new Date();
+
+                var result = {
+                    message: msg
+                }
                 
-                res.write({
-                    message: msg, 
-                    data: "Hello"
-                });
+                console.log("Hello " + new Date() );
+                res.write(JSON.stringify(result));
 
                 res.end();
 
-            } else if (req.url = '/chatroom') {
+            }  else if (req.url === '/') {
 
-                log('Received task ');
-                res.end({message: "Thank you"});
+                console.log('Thanks');
+                res.end("Thank you, I am here");
 
             }
 
