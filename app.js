@@ -4,8 +4,8 @@ var port = process.env.PORT || 3000,
     html = fs.readFileSync('index.html');
     url = require('url');
 
+// here we keep all the messages
 var myLastMessage = [];
-
 
 var server = http.createServer(function (req, res) {
 
@@ -23,9 +23,8 @@ var server = http.createServer(function (req, res) {
 
             // get the id parameter from the url
             var query = url.parse(req.url).query;
-            console.log(query)
             var id = query.replace('id=', '');
-            console.log(id)
+
             // create the message object
             var result = {
                 id: id,
@@ -46,7 +45,6 @@ var server = http.createServer(function (req, res) {
 
             // at this point the id is not found 
             if(!found) myLastMessage.push(result);
-            console.log(myLastMessage);
 
             res.writeHead(200, 'OK', {
                 'Content-Type': 'application/json',
@@ -66,7 +64,6 @@ var server = http.createServer(function (req, res) {
             var query = url.parse(req.url).query;
             var id = query.replace('id=', '');
 
-    
             var lastMessage = {};
 
              myLastMessage.find(function(element, index, array)  {
