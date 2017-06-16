@@ -21,12 +21,13 @@ app.post("/", function (req, res) {
 
 app.get("/", function (req, res) {
 
-    var time = new Date();
-    time = "Date now is " + time;
+  var time = new Date();
+  time = "Date now is " + time;
   
-    var obj = {
-        message: time
-    }
+  var obj = {
+      message: time
+  }
     
+  console.log("Obj : ", obj);
   res.send(200, obj);
 });
