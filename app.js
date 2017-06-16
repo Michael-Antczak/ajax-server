@@ -55,31 +55,36 @@ var server = http.createServer(function (req, res) {
 
         });  // end of POST request
         
-//     // dealing with GET request
-// } else if (req.method === 'GET') {
+    // dealing with GET request
+} else if (req.method === 'GET') {
     
-//             // get the id parameter from the url
-//             var query = url.parse(req.url).query;
-//             var id = query.replace('id=', '');
+            // get the id parameter from the url
+            var query = url.parse(req.url).query;
+            var id = query.replace('id=', '');
+
+                res.writeHead(200);
+                res.write("Done here");
+                res.end();
     
-//             var lastMessage;
+            // var lastMessage;
 
-//              myLastMessage.find(function(element, index, array)  {
+            //  myLastMessage.find(function(element, index, array)  {
 
-//                 if(element.id === id) {
+            //     if(element.id === id) {
 
-//                    lastMessage = element;
+            //        lastMessage = element;
 
-//                 }
+            //     }
 
-//             });
+            // });
 
-//             res.writeHead(200, 'OK', {'Content-Type': 'application/json'});
-//             res.write(JSON.stringify(lastMessage));
-//             res.end();
+            // res.writeHead(200, 'OK', {'Content-Type': 'application/json'});
+            // res.write(JSON.stringify(lastMessage));
+            // res.end();
 
-//     // 
-    } else {
+    // 
+    } 
+    else {
        
         res.writeHead(200);
         res.write(html);
