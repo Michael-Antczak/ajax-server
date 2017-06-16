@@ -29,7 +29,7 @@ var server = http.createServer(function (req, res) {
             // create the message object
             var result = {
                 id: id,
-                body: body, 
+                message: body, 
             }
 
             // set the flag for checking if there is another message with the same id
@@ -48,7 +48,10 @@ var server = http.createServer(function (req, res) {
             if(!found) myLastMessage.push(result);
             console.log(myLastMessage);
 
-            res.writeHead(200, 'OK');
+            res.writeHead(200, 'OK', {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            });
             res.end("\n\nSuccess");
 
         });  // end of POST request
@@ -66,16 +69,15 @@ var server = http.createServer(function (req, res) {
             var lastMessage;
 
              myLastMessage.find(function(element, index, array)  {
-
                 if(element.id === id) {
-
                    lastMessage = element;
-
                 }
-
             });
 
-            res.writeHead(200, 'OK', {'Content-Type': 'application/json'});
+            res.writeHead(200, 'OK', {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            });
             res.write(JSON.stringify(lastMessage));
             res.end();
 
