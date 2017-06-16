@@ -18,22 +18,25 @@ var server = http.createServer(function (req, res) {
         req.on('end', function() {
             if (req.url === '/') {
 
-                log('Received message: ' + body);
+                res.writeHead(200, 'OK', {'Content-Type': 'application/json'});
+
+                var msg = "Received : " + new Date();
+                
+                res.write({
+                    message: msg, 
+                    data: "Hello"
+                });
+
+                res.end();
 
             } else if (req.url = '/chatroom') {
 
-                log('Received task ' + req.headers['x-aws-sqsd-taskname'] + ' scheduled at ' + req.headers['x-aws-sqsd-scheduled-at']);
+                log('Received task ');
+                res.end({message: "Thank you"});
 
             }
 
-            res.writeHead(200, 'OK', {'Content-Type': 'application/json'});
-
-            var msg = "Received" + new Date();
             
-            res.write({
-                message: msg
-            });
-            res.end();
         });
 
     } else if (req.method === 'GET' && req.url === "chatroom") {
