@@ -12,6 +12,13 @@ app.listen(2222, function() {
     console.log("Listening on 2222.");
 });
 
+app.post("/chatroom/:chatroom", function (req, res) {
+  
+  console.log(req.body) 
+  res.send(200, req.body);
+  
+});
+
 app.post("/", function (req, res) {
   
   console.log(req.body) 
@@ -28,6 +35,6 @@ app.get("/", function (req, res) {
       message: time
   }
     
-  console.log("Obj : ", obj);
-  res.send(200, obj);
+  console.log("Get request came : ", obj);
+  res.send(200, "Hi there");
 });
