@@ -9,8 +9,8 @@ var myLastMessage = [];
 
 var server = http.createServer(function (req, res) {
 
-//     // dealing with POST request
-    if (req.method === 'POST') {
+   // dealing with POST request
+    if (req.method === 'POST' && url.parse(req.url).pathname === "/chatroom/") {
         var body = '';
 
         // get the content of the body
@@ -23,8 +23,9 @@ var server = http.createServer(function (req, res) {
 
             // get the id parameter from the url
             var query = url.parse(req.url).query;
+            console.log(query)
             var id = query.replace('id=', '');
-
+            console.log(id)
             // create the message object
             var result = {
                 id: id,
@@ -37,26 +38,25 @@ var server = http.createServer(function (req, res) {
             // look for the last message for given id, if found -> replace, 
             // not found then just add
             myLastMessage.find(function(element, index, array)  {
-                
                 if(element.id === id) {
                     found = true;
                     myLastMessage.splice(index, 1, result);
-
                 }
-
             });
 
             // at this point the id is not found 
             if(!found) myLastMessage.push(result);
             console.log(myLastMessage);
 
-            res.writeHead(200, 'OK', {'Content-Type': 'application/json'});
+            res.writeHead(200, 'OK');
             res.end("\n\nSuccess");
 
         });  // end of POST request
-        
+    }   
+
+
     // dealing with GET request
-} else if (req.method === 'GET') {
+    if (req.method === 'GET' && url.parse(req.url).pathname === "/chatroom/") {
     
             // get the id parameter from the url
             var query = url.parse(req.url).query;
@@ -80,13 +80,12 @@ var server = http.createServer(function (req, res) {
             res.end();
 
     
-    } 
-    // else {
+    } else if (req.method === 'GET' && url.parse(req.url).pathname === "/") {
        
-    //     res.writeHead(200);
-    //     res.write(html);
-    //     res.end();
-    // }
+        res.writeHead(200);
+        res.write(html);
+        res.end();
+    }
 });
 
 // Listen on port 3000, IP defaults to 127.0.0.1
