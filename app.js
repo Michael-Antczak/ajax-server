@@ -90,7 +90,7 @@ var server = http.createServer(function (req, res) {
             res.end();
 
     
-    } else if (req.method === 'GET' && url.parse(req.url).pathname === "/") {
+    } else if (req.method === 'GET') {
        
         res.writeHead(200);
         res.write(html);
