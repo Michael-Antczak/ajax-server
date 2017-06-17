@@ -53,8 +53,17 @@ var server = http.createServer(function (req, res) {
             });
             res.end("\n\nSuccess");
 
-        });  // end of POST request
-    }   
+        });  // end of req.on request
+    }  else if (req.method === 'POST') {
+
+            res.writeHead(400, 'Bad request', {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+            });
+            res.write(JSON.stringify({Error : "POST request not well formed."}));
+            res.end();
+    }   // end of POST request
 
 
     // dealing with GET request
