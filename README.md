@@ -1,5 +1,9 @@
-#  Node.js server
+#  Node.js API server
 Node.js server for the Ajax exercise for the Code Your Future students in Glasgow. It is supposed to mimic a basic chatroom functionality. 
+
+## How it works
+
+Every chatroom has its own `id`. You can POST meesages to the chatrom, but only the last message received by the server is stored internally. You can view the last message with GET request, see below.  
 
 ## API
 
